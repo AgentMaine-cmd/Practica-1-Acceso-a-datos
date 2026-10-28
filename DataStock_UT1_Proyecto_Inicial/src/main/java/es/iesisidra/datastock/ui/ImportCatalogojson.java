@@ -1,9 +1,13 @@
 package es.iesisidra.datastock.ui;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 import es.iesisidra.datastock.modelo.Producto;
@@ -36,24 +40,58 @@ public class ImportCatalogojson {
         Type productosType = new TypeToken<Inventario>(){}.getType();
 
         try(FileReader lector = new FileReader(ruta)) {
-            int posicionArray = 0;
             int numeroDeProdcutosNoImportados = 0;
             inventarioProvisional = gson.fromJson(lector, productosType);
             for(Producto p : inventarioProvisional.getProductos()){
-                if(inventario.equals(inventarioProvisional)){
-                    numeroDeProdcutosNoImportados++;
+                if(comprobadorProdcutos(p)!=null){
+                    numeroDeProdcutosNoImportados = comprobadorProdcutosRepetidos(inventario, numeroDeProdcutosNoImportados, p);
                 }else{
-                    inventario.addProducto(p);
-                    System.out.println(inventario.getProductos().get(posicionArray));
+                    numeroDeProdcutosNoImportados++;
                 }
-                posicionArray++;
+                
+                
             }
             System.out.println("no se han añadido " + numeroDeProdcutosNoImportados + " productos a la lista de inventario final");
-        } catch (Exception e) {
-            System.out.println(e.getLocalizedMessage());
+        }catch(JsonSyntaxException e){
+            System.out.println("No se ha podido exportar el archivo por un error en la formacion del json");
+        } catch (EOFException e) {
+            System.out.println("No se ha podido exportar el archivo por un error en la formacion del json");
+        }catch(IOException e){
+             System.out.println("Error al leer el archivo: " + e.getMessage());
         }
     }
-   
+
+
+
+    private static int comprobadorProdcutosRepetidos(Inventario inventario,int numeroProdcutosNoImportados,Producto p){
+        int n = numeroProdcutosNoImportados;
+        boolean repetido = false;
+        for(Producto pr : inventario.getProductos()){
+            if(p.getCodigo().equalsIgnoreCase(pr.getCodigo().trim())){
+               n++;
+               repetido = true;
+            }else{
+                
+            }
+        }
+
+        if(!repetido){
+            inventario.addProducto(p);
+        }
+        return n;
+    }
+
+
+
+   private static Producto comprobadorProdcutos(Producto p){
+    Producto pr = null;
+         if (p.getCodigo().matches("[A-Z0-9-]{1,12}")&& p.getNombre().matches(".{3,100}")&& p.getPrecio().compareTo(BigDecimal.ZERO) > 0&& p.getStock() >= 0&& p.getCategoriaId() > 0&& p.getProveedorId() > 0) {
+            pr = p;
+            } else {
+                System.out.println("Producto Rechazado");
+            }
+    return pr;
+   }
 
 
 }
