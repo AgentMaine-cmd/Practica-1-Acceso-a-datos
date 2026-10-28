@@ -24,7 +24,7 @@ public class ExploradorRutas {
             
 
             opcionSalida = LectorConsola.leerTexto("Pulse 0 si desea salir: ");
-            if(opcionSalida.contains("0")){
+            if(opcionSalida.equals("0")){
                 salida = true;
             }
             
@@ -40,26 +40,60 @@ public class ExploradorRutas {
             } catch (IOException e) {
             }
             
+        }else if(ruta.length()==0){
+            System.out.println(ColoresConsola.ROJO + "La ruta que has introducido esta vacia" + ColoresConsola.RESET);
         }else{
             System.out.println(ColoresConsola.ROJO + "La ruta que has introducido es inexistente" + ColoresConsola.RESET);
         }
         
     }
-    private static void mostrarInformacionRuta(File ruta)throws IOException{
-        File[]listadoArchivos = ruta.listFiles();
-        for(int i =0; i < ruta.listFiles().length;i++){
-              if(listadoArchivos[i].isFile()){
-            System.out.println("FICHERO "+"Nombre: "+listadoArchivos[i].getName()+"\nRuta absoluta: "+listadoArchivos[i].getCanonicalPath()+"\nTamaño en bytes: "+ listadoArchivos[i].length() + " bytes");
-        }else if(listadoArchivos[i].isDirectory()){
-            System.out.println("DIRECTORIO " + "Nombre : "+listadoArchivos[i].getName());
+    private static void mostrarInformacionRuta(File ruta)throws IOException
+    {
+        if(ruta.isFile())
+        {
+            System.out.print("FICHERO "+"Nombre: "+ruta.getName()+"\nRuta absoluta: "+ruta.getCanonicalPath()+"\nTamaño en bytes: "+ ruta.length() + " bytes");
+        }else
+        {
+            boolean contenido = comprobadorDirectorioVacio(ruta);
+            if(contenido==true)
+            {
+                File[]listadoArchivos = ruta.listFiles();
+                for(int i =0; i < listadoArchivos.length;i++)
+                {
+                    if(listadoArchivos[i].isFile())
+                    {
+                        System.out.println("FICHERO "+"Nombre: "+listadoArchivos[i].getName()+"\nRuta absoluta: "+listadoArchivos[i].getCanonicalPath()+"\nTamaño en bytes: "+ listadoArchivos[i].length() + " bytes");
+                    }else if(listadoArchivos[i].isDirectory())
+                    {
+                        System.out.println("DIRECTORIO " + "Nombre : "+listadoArchivos[i].getName());
+                    }
+                }
+            }else
+            {
+                    System.out.println("esta vacia");
+            }
         }
-        }
-      
+             
     }
+       
+    
+
+    private static boolean comprobadorDirectorioVacio(File ruta){
+        boolean lleno = false;
+        
+        if(ruta.listFiles() == null){
+            lleno = false;
+        }else{
+            lleno = true;
+        }
+        return lleno;
+        
+    }
+}
 
     
     
-}
+
 /*
     File pathOriginal = new File("./DataStock_UT1_Proyecto_Inicial");
         String [] listado = pathOriginal.list();

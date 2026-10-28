@@ -31,7 +31,7 @@ public class MenuPrincipal {
             opcion = LectorConsola.leerOpcion("Selecciona una opción: ", 0, 6);
             switch (opcion) {
                 case 1 -> ExploradorRutas.leerRutas();
-                case 2 -> pendiente("RF-FIC-02 · Importar productos desde JSON");
+                case 2 -> ImportCatalogojson.importarJson(inventario);
                 case 3 -> pendiente("RF-FIC-03 · Importar productos desde XML");
                 case 4 -> menuConsultas();
                 case 5 -> menuExportaciones();
