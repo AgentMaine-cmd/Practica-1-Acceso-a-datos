@@ -40,7 +40,7 @@ public class BuscarProductosInventario {
             }
             
         }else{
-           System.out.println(ColoresConsola.AMARILLO+ "la lista esta vacia" + ColoresConsola.RESET);
+           TextoMenu.textoInventarioVacio();
         }
         
     }
@@ -62,7 +62,9 @@ public class BuscarProductosInventario {
     }
      private static void buscarProductoPorSuNombre(Inventario inventario){
         String porductoNombre = LectorConsola.leerTexto("Introduce el nombre del producto que deseas buscar").toUpperCase().trim();
+
          boolean encontrado = false;
+
         for(Producto p : inventario.getProductos()){
             if(p.getNombre().toUpperCase().contains(porductoNombre)){
                 System.out.println(p.toString());

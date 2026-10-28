@@ -9,4 +9,17 @@ public class TextoMenu {
         System.out.println("0. Salir");
 
     }
+    public static void textoSubMenuSerializar(){
+        System.out.println("CONSULTA DE PRODUCTOS");
+        System.out.println("1, Guardar Datos");
+        System.out.println("2. Recuperar Datos");
+        System.out.println("0. Salir");
+
+    }
+    public static void textoInventarioVacio(){
+        System.out.println(ColoresConsola.AMARILLO+ "la lista esta vacia" + ColoresConsola.RESET);
+    }
+    public static void mensajeErrorRutaErronea(){
+        System.out.println(ColoresConsola.ROJO + "La ruta que has introducido es inexistente" + ColoresConsola.RESET);
+    }
 }
