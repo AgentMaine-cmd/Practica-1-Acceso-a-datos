@@ -53,13 +53,13 @@ public class GuardaryRecuperarInventario {
 
 
     private static void serializarObjeto(Inventario inventario){
-        String rutaDestino= LectorConsola.leerTexto("Introduce  la carpeta donde deseas guardar los datos");
+        String rutaDestino= LectorConsola.leerTexto("Introduce  la carpeta donde deseas guardar los datos: ");
         File rutaCarpeta = new File(RutasFile.rutaOriginalDataStock()+rutaDestino);
        
         if(!rutaCarpeta.exists()){
             rutaCarpeta.mkdir();
         }
-        String ficheroDestino = LectorConsola.leerTexto("Introduce donde deseas serializar el inventario");
+        String ficheroDestino = LectorConsola.leerTexto("Introduce donde deseas serializar el inventario: ");
          File fichero = new File(rutaCarpeta,ficheroDestino);
          if(!fichero.exists()){
             try {
@@ -81,7 +81,7 @@ public class GuardaryRecuperarInventario {
 
 
     private static void deserialziarObjetos(Inventario inventario){
-        String rutaDestino= LectorConsola.leerTexto("Introduce la ruta del archivo que deseas deserializar");
+        String rutaDestino= LectorConsola.leerTexto("Introduce la ruta del archivo que deseas deserializar: ");
         File ruta = new File(RutasFile.rutaOriginalDataStock()+rutaDestino);
        
         if(ruta.exists()){

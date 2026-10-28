@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -30,8 +31,18 @@ public class ImportCatalogoXML {
     private static void comprobadorRuta(File ruta,Inventario inventario){
         if(ruta.exists()){
                 DocumentBuilderFactory dbm = DocumentBuilderFactory.newInstance();
+                
                 try {
-                    
+                    dbm.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+                    dbm.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+                    dbm.setFeature("http://xml.org/sax/features/external-general-entities", false);
+                    dbm.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+
+                    dbm.setXIncludeAware(false);
+                    dbm.setExpandEntityReferences(false);
+
+                    dbm.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+                    dbm.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
                     DocumentBuilder constructor = dbm.newDocumentBuilder();
                     Document documento = constructor.parse(ruta);
                     documento.getDocumentElement().normalize();
@@ -58,6 +69,7 @@ public class ImportCatalogoXML {
     }
     private static void importarArchivosXML(Inventario inventario, Document documento){
         NodeList productos = documento.getElementsByTagName("producto");
+        int productosRechazados =0;
         for(int i = 0; i<productos.getLength(); i++){
             Element producto = (Element) productos.item(i);
             String codigo= producto.getElementsByTagName("codigo").item(0).getTextContent();
@@ -67,7 +79,12 @@ public class ImportCatalogoXML {
             int categoriaId =Integer.parseInt(producto.getElementsByTagName("categoriaId").item(0).getTextContent()) ;
             int proveedorId =Integer.parseInt(producto.getElementsByTagName("proveedorId").item(0).getTextContent()) ;
             Producto p = comprobadorProducto(codigo, nombre, precio, stock, categoriaId, proveedorId, inventario);
-            comprobadorDuplicados(p, inventario);
+            if(p== null){
+                productosRechazados++;
+            }else{
+                comprobadorDuplicados(p, inventario,productosRechazados);
+            }
+            
         }
     }
     private static Producto comprobadorProducto(String codigo, String nombre, BigDecimal precio, int stock,int categoriaId, int proveedorId,Inventario inventario){
@@ -81,7 +98,7 @@ public class ImportCatalogoXML {
         return p;
     }
 
-    private static void comprobadorDuplicados(Producto p,Inventario inventario){
+    private static void comprobadorDuplicados(Producto p,Inventario inventario,int productosRechazados){
         boolean duplicado = false;
         for(Producto pr : inventario.getProductos()){
             if(pr.getCodigo().trim().equalsIgnoreCase(p.getCodigo().trim())){
@@ -91,7 +108,8 @@ public class ImportCatalogoXML {
         if(!duplicado){
             inventario.addProducto(p);
         }else{
-            System.out.print("producto duplicado");
+            productosRechazados++;
         }
+        System.out.print("Productos rechazados " + productosRechazados);
     }
 }
