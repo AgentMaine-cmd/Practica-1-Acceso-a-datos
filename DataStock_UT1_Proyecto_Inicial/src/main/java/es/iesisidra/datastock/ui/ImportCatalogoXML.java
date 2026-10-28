@@ -33,6 +33,7 @@ public class ImportCatalogoXML {
                 DocumentBuilderFactory dbm = DocumentBuilderFactory.newInstance();
                 
                 try {
+                    
                     dbm.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
                     dbm.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
                     dbm.setFeature("http://xml.org/sax/features/external-general-entities", false);

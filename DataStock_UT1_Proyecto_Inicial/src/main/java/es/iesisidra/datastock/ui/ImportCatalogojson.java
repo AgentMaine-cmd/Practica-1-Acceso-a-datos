@@ -25,8 +25,7 @@ public class ImportCatalogojson {
 
     private static void comprobadorGSON(File ruta, Inventario inventario){
 
-        if(ruta.exists()&&ruta.getName().endsWith(".json")){
-            System.out.println("Esti funciona");
+        if(ruta.exists()&&ruta.getName().toLowerCase().endsWith(".json")){
             JsonAObjeto(ruta, inventario);
         }else{
             System.out.println(ColoresConsola.ROJO+"La ruta que has introducido no es valida"+ColoresConsola.RESET);
@@ -52,6 +51,8 @@ public class ImportCatalogojson {
                 
             }
             System.out.println("no se han añadido " + numeroDeProdcutosNoImportados + " productos a la lista de inventario final");
+        }catch(NullPointerException e){
+            System.out.println("El archivo json esta vacio");
         }catch(JsonSyntaxException e){
             System.out.println("No se ha podido exportar el archivo por un error en la formacion del json");
         } catch (EOFException e) {
