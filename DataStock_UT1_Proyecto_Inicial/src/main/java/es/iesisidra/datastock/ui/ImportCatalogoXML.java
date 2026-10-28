@@ -22,7 +22,7 @@ import es.iesisidra.datastock.util.TextoMenu;
 
 public class ImportCatalogoXML {
     public static void importarXML(Inventario inventario){
-        String rutaFinal = LectorConsola.leerTexto("Introduzca la ruta del archivo xml que desee leer");
+        String rutaFinal = LectorConsola.leerTexto("Introduzca la ruta del archivo xml que desee leer: ");
         File ruta = new File(RutasFile.rutaOriginalDataStock()+rutaFinal);
         comprobadorRuta(ruta, inventario);
         
@@ -52,7 +52,13 @@ public class ImportCatalogoXML {
                     }else{
                         importarArchivosXML(inventario, documento);
                     }
-                }catch(IOException e){}catch(SAXException e){} catch (ParserConfigurationException e) {}
+                }catch(IOException e){
+                    System.out.println("Error al momento de leer archivo");
+                }catch(SAXException e){
+                    System.out.println("Error el archivo xml esta mal formado");
+                } catch (ParserConfigurationException e) {
+                    System.out.println("No se ha podido configurar el analizador xml");
+                }
         }else{
             TextoMenu.mensajeErrorRutaErronea();
         }
@@ -71,20 +77,27 @@ public class ImportCatalogoXML {
         NodeList productos = documento.getElementsByTagName("producto");
         int productosRechazados =0;
         for(int i = 0; i<productos.getLength(); i++){
-            Element producto = (Element) productos.item(i);
-            String codigo= producto.getElementsByTagName("codigo").item(0).getTextContent();
-            String nombre= producto.getElementsByTagName("nombre").item(0).getTextContent();
-            BigDecimal precio= new BigDecimal(producto.getElementsByTagName("precio").item(0).getTextContent().trim()) ;
-            int stock = Integer.parseInt(producto.getElementsByTagName("stock").item(0).getTextContent());
-            int categoriaId =Integer.parseInt(producto.getElementsByTagName("categoriaId").item(0).getTextContent()) ;
-            int proveedorId =Integer.parseInt(producto.getElementsByTagName("proveedorId").item(0).getTextContent()) ;
-            Producto p = comprobadorProducto(codigo, nombre, precio, stock, categoriaId, proveedorId, inventario);
-            if(p== null){
-                productosRechazados++;
-            }else{
-                comprobadorDuplicados(p, inventario,productosRechazados);
-            }
+            try {
+                    Element producto = (Element) productos.item(i);
+                    String codigo= producto.getElementsByTagName("codigo").item(0).getTextContent();
+                    String nombre= producto.getElementsByTagName("nombre").item(0).getTextContent();
+                    BigDecimal precio= new BigDecimal(producto.getElementsByTagName("precio").item(0).getTextContent().trim()) ;
+                    int stock = Integer.parseInt(producto.getElementsByTagName("stock").item(0).getTextContent());
+                    int categoriaId =Integer.parseInt(producto.getElementsByTagName("categoriaId").item(0).getTextContent()) ;
+                    int proveedorId =Integer.parseInt(producto.getElementsByTagName("proveedorId").item(0).getTextContent()) ;
+                    Producto p = comprobadorProducto(codigo, nombre, precio, stock, categoriaId, proveedorId, inventario);
+                    if(p== null){
+                        productosRechazados++;
+                    }else{
+                        comprobadorDuplicados(p, inventario,productosRechazados);
+                    }
             
+            } catch (NumberFormatException e) {
+                System.out.println("error al momento de leer el xml, producto mal formado");
+            } catch(NullPointerException e){
+                System.out.println("error al momento de leer el xml faltan datos al producto");
+            }
+      
         }
     }
     private static Producto comprobadorProducto(String codigo, String nombre, BigDecimal precio, int stock,int categoriaId, int proveedorId,Inventario inventario){
