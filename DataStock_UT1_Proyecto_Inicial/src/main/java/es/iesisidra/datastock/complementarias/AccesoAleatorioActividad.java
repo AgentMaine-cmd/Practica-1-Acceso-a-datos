@@ -8,6 +8,6 @@ public final class AccesoAleatorioActividad {
     private AccesoAleatorioActividad() { }
     /** TODO: generar, consultar y modificar registros de 36 bytes. */
     public static void main(String[] args) {
-        System.out.println("RF-FIC-08 · RandomAccessFile: actividad pendiente de implementar.");
+        
     }
 }

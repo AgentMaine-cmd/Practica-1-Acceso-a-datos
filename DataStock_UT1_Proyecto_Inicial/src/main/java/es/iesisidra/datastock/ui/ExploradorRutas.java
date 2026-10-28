@@ -4,9 +4,10 @@ import java.io.IOException;
 
 import es.iesisidra.datastock.util.ColoresConsola;
 import es.iesisidra.datastock.util.LectorConsola;
+import es.iesisidra.datastock.util.RutasFile;
 
 public class ExploradorRutas {
-    private static final String rutaInicial = "./DataStock_UT1_Proyecto_Inicial/";
+   
     public static void leerRutas(){
         String entradaRuta,opcionSalida;
         
@@ -17,7 +18,7 @@ public class ExploradorRutas {
         
             entradaRuta= LectorConsola.leerTexto("Introduce ruta: ");
         
-            ruta = new File(rutaInicial + entradaRuta);
+            ruta = new File(RutasFile.rutaOriginalDataStock() + entradaRuta);
                 
             comprobadorRuta(ruta);
             
@@ -38,10 +39,9 @@ public class ExploradorRutas {
             try {
                 mostrarInformacionRuta(ruta);
             } catch (IOException e) {
+                e.printStackTrace();
             }
             
-        }else if(ruta.length()==0){
-            System.out.println(ColoresConsola.ROJO + "La ruta que has introducido esta vacia" + ColoresConsola.RESET);
         }else{
             System.out.println(ColoresConsola.ROJO + "La ruta que has introducido es inexistente" + ColoresConsola.RESET);
         }
@@ -49,45 +49,58 @@ public class ExploradorRutas {
     }
     private static void mostrarInformacionRuta(File ruta)throws IOException
     {
+        int numerodeArchivo = 0;
+        int numeroFicheros = 0;
+        int numeroDirectorios=0;
         if(ruta.isFile())
         {
             System.out.print("FICHERO "+"Nombre: "+ruta.getName()+"\nRuta absoluta: "+ruta.getCanonicalPath()+"\nTamaño en bytes: "+ ruta.length() + " bytes");
+            numeroFicheros++;
         }else
         {
-            boolean contenido = comprobadorDirectorioVacio(ruta);
-            if(contenido==true)
+           int contenido = comprobadorDirectorioVacio(ruta);
+            if(contenido==1)
             {
                 File[]listadoArchivos = ruta.listFiles();
+                numerodeArchivo = listadoArchivos.length;
                 for(int i =0; i < listadoArchivos.length;i++)
                 {
                     if(listadoArchivos[i].isFile())
                     {
+                        numeroFicheros++;
                         System.out.println("FICHERO "+"Nombre: "+listadoArchivos[i].getName()+"\nRuta absoluta: "+listadoArchivos[i].getCanonicalPath()+"\nTamaño en bytes: "+ listadoArchivos[i].length() + " bytes");
                     }else if(listadoArchivos[i].isDirectory())
                     {
+                        numeroDirectorios++;
                         System.out.println("DIRECTORIO " + "Nombre : "+listadoArchivos[i].getName());
                     }
                 }
-            }else
+                System.out.println("Numero de ficheros: " + numeroFicheros + " Numero de directorios: " + numeroDirectorios + " Numero archivos: " + numerodeArchivo);
+            }else if(contenido == 2)
             {
                     System.out.println("esta vacia");
+            }else if(contenido==0){
+                System.out.println("No se ha podido acceder al fichero");
             }
+            
         }
              
     }
        
     
 
-    private static boolean comprobadorDirectorioVacio(File ruta){
-        boolean lleno = false;
+    private static int comprobadorDirectorioVacio(File ruta){
+        int lleno = 0;
+        File[]ficherosProvisional = ruta.listFiles();
+          if(ficherosProvisional == null){
+                lleno = 0;
+            }else if(ficherosProvisional.length>0){
+                lleno = 1;
+            }else if(ficherosProvisional.length==0){
+                lleno = 2;
+            }
         
-        if(ruta.listFiles() == null){
-            lleno = false;
-        }else{
-            lleno = true;
-        }
-        return lleno;
-        
+        return lleno;   
     }
 }
 

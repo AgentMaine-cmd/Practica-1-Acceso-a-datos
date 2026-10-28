@@ -11,7 +11,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
 
-import es.iesisidra.datastock.modelo.Producto;
 import es.iesisidra.datastock.servicio.Inventario;
 import es.iesisidra.datastock.util.ColoresConsola;
 import es.iesisidra.datastock.util.LectorConsola;
@@ -57,7 +56,7 @@ public class GuardaryRecuperarInventario {
         File rutaCarpeta = new File(RutasFile.rutaOriginalDataStock()+rutaDestino);
        
         if(!rutaCarpeta.exists()){
-            rutaCarpeta.mkdir();
+            rutaCarpeta.mkdirs();
         }
         String ficheroDestino = LectorConsola.leerTexto("Introduce donde deseas serializar el inventario: ");
          File fichero = new File(rutaCarpeta,ficheroDestino);
@@ -65,13 +64,12 @@ public class GuardaryRecuperarInventario {
             try {
                 fichero.createNewFile();
             } catch (IOException e) {
+                e.printStackTrace();
             }
             
          }
         try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fichero))) {
-            for(Producto p : inventario.getProductos()){
-                oos.writeObject(p);
-            }
+            oos.writeObject(inventario.getProductos());
         }catch(EOFException e){
             System.out.println("Error al recuperar el inventario: " + e.getMessage());
         }catch (Exception e) {
@@ -87,8 +85,7 @@ public class GuardaryRecuperarInventario {
         if(ruta.exists()){
             try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ruta))) {
                 while (true) {
-                    Producto p = (Producto) ois.readObject();
-                    inventario.addProducto(p);
+                    inventario = (Inventario) ois.readObject();
                     
                 }
 

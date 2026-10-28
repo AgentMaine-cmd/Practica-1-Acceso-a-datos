@@ -37,5 +37,9 @@ public class Inventario {
         Producto p = new Producto();
         return p;
     }
+    public void reemplazarProductos(List<Producto> nuevosProductos) {
+    productos.clear();
+    productos.addAll(nuevosProductos);
+    }
     public List<Producto> getProductos() { return productos; }
 }
