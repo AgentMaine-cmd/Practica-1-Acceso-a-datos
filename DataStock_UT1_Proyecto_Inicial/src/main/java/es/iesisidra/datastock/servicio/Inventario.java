@@ -20,6 +20,22 @@ public class Inventario {
      * reglas del enunciado antes de añadir o sustituir elementos.</p>
      */
     public Inventario(){}
+
     public void addProducto(Producto p){productos.add(p);}
+
+    public boolean listaVacia(){
+        boolean vacia = true;
+        if(productos.isEmpty()){
+            vacia = true;
+        }else{
+            vacia = false;
+        }
+        return vacia;
+    }
+
+    public Producto productoEnConcreto(){
+        Producto p = new Producto();
+        return p;
+    }
     public List<Producto> getProductos() { return productos; }
 }

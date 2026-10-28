@@ -1,5 +1,6 @@
 package es.iesisidra.datastock.ui;
 
+import es.iesisidra.datastock.servicio.BuscarProductosInventario;
 import es.iesisidra.datastock.servicio.Inventario;
 import es.iesisidra.datastock.util.ColoresConsola;
 import es.iesisidra.datastock.util.LectorConsola;
@@ -33,7 +34,7 @@ public class MenuPrincipal {
                 case 1 -> ExploradorRutas.leerRutas();
                 case 2 -> ImportCatalogojson.importarJson(inventario);
                 case 3 -> pendiente("RF-FIC-03 · Importar productos desde XML");
-                case 4 -> menuConsultas();
+                case 4 -> BuscarProductosInventario.subMenuConsultaProductos(inventario);
                 case 5 -> menuExportaciones();
                 case 6 -> menuSerializacion();
                 case 0 -> System.out.println(ColoresConsola.pintar("Hasta pronto.", ColoresConsola.VERDE));

@@ -36,17 +36,19 @@ public class ImportCatalogojson {
         Type productosType = new TypeToken<Inventario>(){}.getType();
 
         try(FileReader lector = new FileReader(ruta)) {
-            int i = 0;
+            int posicionArray = 0;
+            int numeroDeProdcutosNoImportados = 0;
             inventarioProvisional = gson.fromJson(lector, productosType);
             for(Producto p : inventarioProvisional.getProductos()){
-                if(inventario.getProductos().equals(p)){
-                    i++;
+                if(inventario.equals(inventarioProvisional)){
+                    numeroDeProdcutosNoImportados++;
                 }else{
                     inventario.addProducto(p);
-                    System.out.println(inventario.getProductos());
+                    System.out.println(inventario.getProductos().get(posicionArray));
                 }
+                posicionArray++;
             }
-            System.out.println("no se han añadido " + i + " productos a la lista de inventario final");
+            System.out.println("no se han añadido " + numeroDeProdcutosNoImportados + " productos a la lista de inventario final");
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
