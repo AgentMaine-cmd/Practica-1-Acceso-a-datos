@@ -16,6 +16,7 @@ public class Producto implements Serializable {
 
     private String codigo;
     private String nombre;
+    private double precio2;
     private BigDecimal precio;
     private int stock;
     private int categoriaId;
@@ -35,6 +36,12 @@ public class Producto implements Serializable {
         this.proveedorId = proveedorId;
     }
 
+    public Producto(String codigo, double precio, int stock) {
+        this.codigo = codigo;
+        this.precio2 = precio;
+        this.stock = stock;
+    }
+    
     /** @return código único del producto (máximo 12 caracteres). */
     public String getCodigo() { return codigo; }
     public void setCodigo(String codigo) { this.codigo = codigo; }
