@@ -61,7 +61,7 @@ public final class XPathActividad {
         
     }
     private static Document analisisXML(){
-        String rutaFichero = LectorConsola.leerTexto("Introduce el fichero que deseas leer");
+        String rutaFichero = LectorConsola.leerTexto("Introduce el fichero que deseas leer: ");
         File ruta = new File(RutasFile.rutaOriginalDataStock()+rutaFichero);
         Document documento = null;
         if(RutasFile.comprobadorRuta(ruta)){

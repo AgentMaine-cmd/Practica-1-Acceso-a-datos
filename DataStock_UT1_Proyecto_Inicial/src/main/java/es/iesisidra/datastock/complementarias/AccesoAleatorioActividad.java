@@ -20,10 +20,13 @@ public final class AccesoAleatorioActividad {
     private AccesoAleatorioActividad() { }
     /** TODO: generar, consultar y modificar registros de 36 bytes. */
     public static void main(String[] args) {
-        System.out.println("RF-FIC-08 · RandomAccessFile: actividad pendiente de implementar.");
         Inventario inventario = new Inventario();
-        Producto p = new Producto("MON-003",2.22,8);
+        Producto p = new Producto("MON-003",1.22,8);
+         Producto p3 = new Producto("MON-002",20.22,8);
+          Producto p2 = new Producto("NON-003",56.22,8);
         inventario.addProducto(p);
+         inventario.addProducto(p2);
+          inventario.addProducto(p3);
         iniciar(inventario);
     }
     private static boolean listaVacia(Inventario inventario){

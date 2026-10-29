@@ -112,7 +112,7 @@ private static void creacionXML(File ruta, Inventario inventario) {
             producto.appendChild(stock);
         }
 
-        // Guardar el documento una vez creados todos los productos
+       
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
 

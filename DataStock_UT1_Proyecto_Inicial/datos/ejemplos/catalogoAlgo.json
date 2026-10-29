@@ -17,6 +17,7 @@
       "stock": 25,
       "categoriaId": 1,
       "proveedorId": 1
-    }
+    },
+    {"codigo":"RAT-003","nombre":"Ratón inalámbrico","precio":14.50,"stock":25,"categoriaId":1,"proveedorId":1}
   ]
 }
