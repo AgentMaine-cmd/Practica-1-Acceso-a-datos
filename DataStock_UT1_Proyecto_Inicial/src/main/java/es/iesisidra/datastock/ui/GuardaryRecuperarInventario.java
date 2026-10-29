@@ -83,9 +83,11 @@ public class GuardaryRecuperarInventario {
     private static void deserialziarObjetos(Inventario inventario){
         String rutaDestino= LectorConsola.leerTexto("Introduce la ruta del archivo que deseas deserializar: ");
         File ruta = new File(RutasFile.rutaOriginalDataStock()+rutaDestino);
+       String opcion = LectorConsola.leerTexto("Deseas sustituir el inventario? S/N");
        
         if(ruta.exists()){
-            try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ruta))) {
+            if(opcion.toUpperCase().equals("S")){
+                try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ruta))) {
                 while (true) {
                     List<Producto> p = (List<Producto>) ois.readObject();
                     inventario.sustituirInventario(p);
@@ -95,6 +97,11 @@ public class GuardaryRecuperarInventario {
             } catch (Exception e) {
                 System.out.println(e.getLocalizedMessage());
             }
+        
+            }else if(opcion.toUpperCase().equals("N")){
+                System.out.println("No se recogera lo guardado");
+            }
+            
         }else{
             System.out.println(ColoresConsola.ROJO + "La ruta que has introducido es inexistente" + ColoresConsola.RESET);
         }
