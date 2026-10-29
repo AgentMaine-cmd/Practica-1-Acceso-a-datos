@@ -32,7 +32,10 @@ public class Inventario {
         }
         return vacia;
     }
-
+    public void sustituirInventario(List<Producto> productos){
+        this.productos.clear();
+        this.productos.addAll(productos);
+    }
     public Producto productoEnConcreto(){
         Producto p = new Producto();
         return p;

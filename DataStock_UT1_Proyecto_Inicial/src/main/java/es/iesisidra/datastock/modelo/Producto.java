@@ -41,6 +41,9 @@ public class Producto implements Serializable {
         this.precio2 = precio;
         this.stock = stock;
     }
+    public double getPrecio2(){
+        return precio2;
+    }
     
     /** @return código único del producto (máximo 12 caracteres). */
     public String getCodigo() { return codigo; }

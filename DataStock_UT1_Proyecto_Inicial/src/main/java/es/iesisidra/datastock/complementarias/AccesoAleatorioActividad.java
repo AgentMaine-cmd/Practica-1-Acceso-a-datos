@@ -74,7 +74,7 @@ public final class AccesoAleatorioActividad {
                 codigo = String.format("%-12s", codigo);
 
                 raf.writeChars(codigo);
-                raf.writeDouble(p.getPrecio().doubleValue());
+                raf.writeDouble(p.getPrecio2());
                 raf.writeInt(p.getStock());
             }
         } catch (IOException e) {

@@ -35,7 +35,7 @@ public class MenuPrincipal {
                 case 2 -> ImportCatalogojson.importarJson(inventario);
                 case 3 -> ImportCatalogoXML.importarXML(inventario);
                 case 4 -> BuscarProductosInventario.subMenuConsultaProductos(inventario);
-                case 5 -> menuExportaciones();
+                case 5 -> ExportarJsonYXML.importarInventario(inventario);
                 case 6 -> GuardaryRecuperarInventario.subMenuGuardaryRecuperarDatos(inventario);
                 case 0 -> System.out.println(ColoresConsola.pintar("Hasta pronto.", ColoresConsola.VERDE));
                 default -> throw new IllegalStateException("Opción inesperada");

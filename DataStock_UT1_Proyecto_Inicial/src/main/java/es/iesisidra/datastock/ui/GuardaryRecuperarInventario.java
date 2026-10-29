@@ -10,7 +10,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
+import java.util.List;
 
+import es.iesisidra.datastock.modelo.Producto;
 import es.iesisidra.datastock.servicio.Inventario;
 import es.iesisidra.datastock.util.ColoresConsola;
 import es.iesisidra.datastock.util.LectorConsola;
@@ -85,7 +87,8 @@ public class GuardaryRecuperarInventario {
         if(ruta.exists()){
             try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ruta))) {
                 while (true) {
-                    inventario = (Inventario) ois.readObject();
+                    List<Producto> p = (List<Producto>) ois.readObject();
+                    inventario.sustituirInventario(p);
                     
                 }
 
