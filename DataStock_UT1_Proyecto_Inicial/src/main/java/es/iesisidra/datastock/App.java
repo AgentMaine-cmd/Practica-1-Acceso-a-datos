@@ -1,5 +1,9 @@
 package es.iesisidra.datastock;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import es.iesisidra.datastock.DAO.ConexionBasesDatos;
 import es.iesisidra.datastock.servicio.Inventario;
 import es.iesisidra.datastock.ui.MenuPrincipal;
 
@@ -14,6 +18,11 @@ public final class App {
     public static void main(String[] args) {
         Inventario inventario = new Inventario();
         MenuPrincipal menu = new MenuPrincipal(inventario);
-        menu.iniciar();
+        //menu.iniciar();
+        try(Connection conexion = ConexionBasesDatos.abrir()) {
+            System.out.println("Conexion establecida" + !conexion.isClosed());
+        } catch (SQLException e) {
+            System.err.println("Error de conexion" + e.getMessage());
+        }
     }
 }

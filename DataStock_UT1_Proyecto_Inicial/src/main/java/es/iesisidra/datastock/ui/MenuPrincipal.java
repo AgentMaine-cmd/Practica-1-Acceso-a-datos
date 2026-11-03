@@ -37,6 +37,7 @@ public class MenuPrincipal {
                 case 4 -> BuscarProductosInventario.subMenuConsultaProductos(inventario);
                 case 5 -> ExportarJsonYXML.importarInventario(inventario);
                 case 6 -> GuardaryRecuperarInventario.subMenuGuardaryRecuperarDatos(inventario);
+                case 7 -> MenuSQL.menuSQL(inventario);
                 case 0 -> System.out.println(ColoresConsola.pintar("Hasta pronto.", ColoresConsola.VERDE));
                 default -> throw new IllegalStateException("Opción inesperada");
             }
