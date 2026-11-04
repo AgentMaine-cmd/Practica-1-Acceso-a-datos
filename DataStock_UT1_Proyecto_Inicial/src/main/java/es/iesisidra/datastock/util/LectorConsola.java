@@ -55,4 +55,15 @@ public final class LectorConsola {
 
     /** Detiene el menú hasta que el usuario pulse Intro. */
     public static void pausar() { leerTexto("Pulsa Intro para continuar..."); }
+
+    public static double leerDouble(String mensaje){
+        while(true){
+            String numero = leerTexto(mensaje).trim();
+            try {
+                return Double.parseDouble(numero);
+            } catch (NumberFormatException e) {
+                System.out.println(ColoresConsola.AMARILLO + "Introduce un numero" + ColoresConsola.RESET);
+            }
+        }
+    }
 }

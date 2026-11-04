@@ -1,7 +1,5 @@
 package es.iesisidra.datastock;
 
-import es.iesisidra.datastock.comprobadores.Comprobador;
-import es.iesisidra.datastock.modelo.Proveedor;
 import es.iesisidra.datastock.servicio.Inventario;
 import es.iesisidra.datastock.ui.MenuPrincipal;
 
@@ -16,8 +14,8 @@ public final class App {
     public static void main(String[] args) {
         Inventario inventario = new Inventario();
         MenuPrincipal menu = new MenuPrincipal(inventario);
-        Proveedor p = Comprobador.comprobadorProveedor();
-       // menu.iniciar();
+        
+        menu.iniciar();
         
     }
 }
