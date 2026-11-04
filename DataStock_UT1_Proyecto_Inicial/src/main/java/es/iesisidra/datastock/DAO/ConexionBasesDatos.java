@@ -1,15 +1,29 @@
 package es.iesisidra.datastock.DAO;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public final class ConexionBasesDatos {
-    private static final String URL= "jdbc:mysql://localhost:3306/Data_Stock_MySQL";
-    private static final String USUARIO = "root";
-    private static final String CLAVE="Password1234";
-
+    
+    //debo cambiar esta version cuando ponga este proyecto publico en github
     public static Connection abrir()throws SQLException{
-        return DriverManager.getConnection(URL, USUARIO, CLAVE);
+            Properties datos = new Properties();
+        try (InputStream entrada = ConexionBasesDatos.class.getClassLoader()
+                .getResourceAsStream("db.properties")) {
+            if (entrada == null) {
+                throw new SQLException("No se encuentra db.properties");
+            }
+            datos.load(entrada);
+        } catch (IOException e) {
+            throw new SQLException("Error leyendo db.properties", e);
+        }
+        String url = datos.getProperty("jdbc.url");
+        String usuario = datos.getProperty("jdbc.user");
+        String clave = datos.getProperty("jdbc.password");
+        return DriverManager.getConnection(url, usuario, clave);
     }
 }

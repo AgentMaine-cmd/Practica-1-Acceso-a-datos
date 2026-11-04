@@ -1,9 +1,12 @@
 package es.iesisidra.datastock;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import es.iesisidra.datastock.DAO.ConexionBasesDatos;
+import es.iesisidra.datastock.DAO.InserccionBasesDeDatos;
+import es.iesisidra.datastock.modelo.Producto;
 import es.iesisidra.datastock.servicio.Inventario;
 import es.iesisidra.datastock.ui.MenuPrincipal;
 
@@ -18,9 +21,10 @@ public final class App {
     public static void main(String[] args) {
         Inventario inventario = new Inventario();
         MenuPrincipal menu = new MenuPrincipal(inventario);
+        Producto  p = new Producto("RAT-001", "RATON", BigDecimal.valueOf(12.5), 2, 1, 2);
         //menu.iniciar();
         try(Connection conexion = ConexionBasesDatos.abrir()) {
-            System.out.println("Conexion establecida" + !conexion.isClosed());
+            InserccionBasesDeDatos.introducirProductos(p);
         } catch (SQLException e) {
             System.err.println("Error de conexion" + e.getMessage());
         }
