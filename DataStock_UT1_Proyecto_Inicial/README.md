@@ -119,3 +119,9 @@ Antes de entregar, comprueba que `mvn clean compile` funciona, que el menú no t
 ## 9. Referencia
 
 Consulta el **enunciado DataStock UT1** facilitado en el aula virtual: es la fuente que determina el comportamiento exigido. El SQL y el diagrama del directorio `material_referencia` se facilitan para entender el proyecto completo; **no hay que conectar MySQL en UT1**.
+
+## Introduccion a bases de datos
+Debes crear un fichero db. properties siguiendo el siguiente patron
+jdbc.url = "jdbc:mysql://Nombre_De_Conexion:puerto_De_Conexion/Nombre_Base_Datos"
+jdbc.user= "tu_usuario"
+jdbc.password="tu_cotraseña"

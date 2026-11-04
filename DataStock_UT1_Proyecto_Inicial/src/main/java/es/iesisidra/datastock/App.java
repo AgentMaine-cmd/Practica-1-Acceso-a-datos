@@ -1,12 +1,11 @@
 package es.iesisidra.datastock;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import es.iesisidra.datastock.DAO.ConexionBasesDatos;
 import es.iesisidra.datastock.DAO.InserccionBasesDeDatos;
-import es.iesisidra.datastock.modelo.Producto;
+import es.iesisidra.datastock.modelo.Proveedor;
 import es.iesisidra.datastock.servicio.Inventario;
 import es.iesisidra.datastock.ui.MenuPrincipal;
 
@@ -21,10 +20,13 @@ public final class App {
     public static void main(String[] args) {
         Inventario inventario = new Inventario();
         MenuPrincipal menu = new MenuPrincipal(inventario);
-        Producto  p = new Producto("RAT-001", "RATON", BigDecimal.valueOf(12.5), 2, 1, 2);
+        //Producto  p = new Producto("RAT-001", "RATON", BigDecimal.valueOf(12.5), 2, 1, 2);
+        Proveedor p = new Proveedor(1,"salco","salco@gmail.com");
+         Proveedor p2 = new Proveedor(1,"salco","salco@gmail.com");
         //menu.iniciar();
         try(Connection conexion = ConexionBasesDatos.abrir()) {
-            InserccionBasesDeDatos.introducirProductos(p);
+           InserccionBasesDeDatos.inserccionDeProveedores(p);
+            InserccionBasesDeDatos.inserccionDeProveedores(p2);
         } catch (SQLException e) {
             System.err.println("Error de conexion" + e.getMessage());
         }
