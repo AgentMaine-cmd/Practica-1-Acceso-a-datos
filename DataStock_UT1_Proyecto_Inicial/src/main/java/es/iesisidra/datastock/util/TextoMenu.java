@@ -39,4 +39,14 @@ public class TextoMenu {
         System.out.println("9. Domstracion de transaccion con commit/trollback");
         System.out.println("0. Volver al menu principal");
     }
+    public static void textoMenuPrincipal(){
+            System.out.println("1. Explorar ficheros y directorios");
+            System.out.println("2. Importar productos desde JSON");
+            System.out.println("3. Importar productos desde XML");
+            System.out.println("4. Consultar productos");
+            System.out.println("5. Exportar productos");
+            System.out.println("6. Guardar y recuperar inventario");
+            System.out.println("7. Introducirse menu sql");
+            System.out.println("0. Salir");
+    }
 }

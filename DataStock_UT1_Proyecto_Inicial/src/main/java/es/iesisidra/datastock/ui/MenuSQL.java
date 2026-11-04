@@ -1,5 +1,9 @@
 package es.iesisidra.datastock.ui;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import es.iesisidra.datastock.DAO.ConexionBasesDatos;
 import es.iesisidra.datastock.servicio.Inventario;
 import es.iesisidra.datastock.util.LectorConsola;
 import es.iesisidra.datastock.util.TextoMenu;
@@ -8,8 +12,8 @@ public class MenuSQL {
     public static void menuSQL(Inventario inventario){
         boolean salida = false;
         int opcion;
-        
-        while (!salida) { 
+        try(Connection conexion = ConexionBasesDatos.abrir()) {
+             while (!salida) { 
           TextoMenu.textoMenuSQL();  
           opcion= LectorConsola.leerOpcion("Introduce opcion", 0, 9);
           switch (opcion) {
@@ -47,5 +51,10 @@ public class MenuSQL {
                   throw new AssertionError();
           }  
         }
+        } catch (SQLException e) {
+            System.err.println("Error de conexion " + e.getMessage());
+        }
+        
+      
     }
 }

@@ -4,6 +4,7 @@ import es.iesisidra.datastock.servicio.BuscarProductosInventario;
 import es.iesisidra.datastock.servicio.Inventario;
 import es.iesisidra.datastock.util.ColoresConsola;
 import es.iesisidra.datastock.util.LectorConsola;
+import es.iesisidra.datastock.util.TextoMenu;
 
 /**
  * Presentación de menús y navegación de la primera fase de DataStock.
@@ -22,14 +23,8 @@ public class MenuPrincipal {
         int opcion;
         do {
             mostrarCabecera();
-            System.out.println("1. Explorar ficheros y directorios");
-            System.out.println("2. Importar productos desde JSON");
-            System.out.println("3. Importar productos desde XML");
-            System.out.println("4. Consultar productos");
-            System.out.println("5. Exportar productos");
-            System.out.println("6. Guardar y recuperar inventario");
-            System.out.println("0. Salir");
-            opcion = LectorConsola.leerOpcion("Selecciona una opción: ", 0, 6);
+            TextoMenu.textoMenuPrincipal();
+            opcion = LectorConsola.leerOpcion("Selecciona una opción: ", 0, 7);
             switch (opcion) {
                 case 1 -> ExploradorRutas.leerRutas();
                 case 2 -> ImportCatalogojson.importarJson(inventario);

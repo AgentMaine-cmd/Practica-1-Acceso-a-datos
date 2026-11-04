@@ -27,7 +27,7 @@ public class InserccionBasesDeDatos {
             int filas = d.executeUpdate();
             System.out.print("Filas insertadas " + filas);
         } catch (SQLException e) {
-            System.out.println("Fallo la inserccion en los productos");
+            System.out.println("Fallo la inserccion en los productos" + e.getLocalizedMessage());
         }catch(Exception e){
             System.out.println(e.getLocalizedMessage());
         }
@@ -40,7 +40,7 @@ public class InserccionBasesDeDatos {
             p.setString(3, proveedor.getEmail());
             p.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Fallo la inserccion en los proveedores");
+            System.out.println("Fallo la inserccion en los proveedores"+e.getLocalizedMessage());
         }catch(Exception e){
             System.out.println(e.getLocalizedMessage());
         }
@@ -52,9 +52,9 @@ public class InserccionBasesDeDatos {
             p.setString(2, categoria.getNombre());
             p.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Fallo la inserccion en la categoria");
+            System.out.println("Fallo la inserccion en la categoria" +e.getLocalizedMessage());
         }catch(Exception e){
-            System.out.println(e.getLocalizedMessage());
+            System.out.println();
         }
     }
 }
