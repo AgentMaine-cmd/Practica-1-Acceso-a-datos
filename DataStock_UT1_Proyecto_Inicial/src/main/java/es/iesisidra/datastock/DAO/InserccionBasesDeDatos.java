@@ -14,11 +14,11 @@ public class InserccionBasesDeDatos {
     /**
      *   
      */
-     private static final String inserccionDeProdcutos="insert into producto (codigo,nombre,precio,stock,categoria_id,proveedor_id) values (?,?,?,?,?,?)";
+     private static final String inserccionDeProductos="insert into producto (codigo,nombre,precio,stock,categoria_id,proveedor_id) values (?,?,?,?,?,?)";
      private static final String inserccionDeProveedor= "insert into proveedor(id,nombre,email) values(?,?,?)";
      private static final String inserccionDeCategoria = "insert into categoria(id,nombre) values(?,?)";
     public static void introducirProductos(Producto producto){
-        try(Connection c = ConexionBasesDatos.abrir(); PreparedStatement p = c.prepareStatement(inserccionDeProdcutos) ) {
+        try(Connection c = ConexionBasesDatos.abrir(); PreparedStatement p = c.prepareStatement(inserccionDeProductos) ) {
             p.setString(2, producto.getNombre());
             p.setString(1,producto.getCodigo());
             p.setBigDecimal(3, producto.getPrecio());
@@ -48,8 +48,8 @@ public class InserccionBasesDeDatos {
         }
     }
 
-    public static void inserccionDeCategorias(){
-        Categoria categoria= Comprobador.comprovadorCategoria();
+    public static void inserccionDeCategorias(Categoria categoria){
+        
         try(Connection c = ConexionBasesDatos.abrir(); PreparedStatement p = c.prepareStatement(inserccionDeCategoria)) {
             p.setInt(1, categoria.getId());
             p.setString(2, categoria.getNombre());

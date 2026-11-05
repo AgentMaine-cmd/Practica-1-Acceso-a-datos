@@ -1,7 +1,9 @@
 package es.iesisidra.datastock;
 
+import es.iesisidra.datastock.DAO.ConsultasBasesDatos;
 import es.iesisidra.datastock.servicio.Inventario;
 import es.iesisidra.datastock.ui.MenuPrincipal;
+import es.iesisidra.datastock.util.TextoMenu;
 
 /**
  * Punto de entrada de DataStock, fase UT1.
@@ -14,8 +16,11 @@ public final class App {
     public static void main(String[] args) {
         Inventario inventario = new Inventario();
         MenuPrincipal menu = new MenuPrincipal(inventario);
-        
-        menu.iniciar();
+        //Categoria c = Comprobador.comprovadorCategoria();
+        //InserccionBasesDeDatos.inserccionDeCategorias(c);
+        //menu.iniciar();
+        TextoMenu.textoConsultaProveedor();
+        ConsultasBasesDatos.consultarProveedor();
         
     }
 }

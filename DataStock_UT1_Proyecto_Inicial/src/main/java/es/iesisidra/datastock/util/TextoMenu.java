@@ -49,4 +49,17 @@ public class TextoMenu {
             System.out.println("7. Introducirse menu sql");
             System.out.println("0. Salir");
     }
+    public static void testoConsultaCategroria(){
+        System.out.println("=======CONSULTAS CATEGORIA========");
+        System.out.printf("%-10s%-10s\n","id","nombre");
+    }
+    public static void textoConsultaProdcuto(){
+        System.out.println("=======CONSULTAS PRODUCTOS========");
+      
+        System.out.printf("%-10s%-10s%-10s%-10s%-10s%-10s\n", "Id","Nombre","Precio","Stock","Categoria id","Proveedor id");
+    }
+    public static void textoConsultaProveedor(){
+        System.out.println("=======CONSULTAS PROVEEDOR========");
+        System.out.printf("%-10s%-10s%-10s\n","Id","Nombre","Email");
+    }
 }
