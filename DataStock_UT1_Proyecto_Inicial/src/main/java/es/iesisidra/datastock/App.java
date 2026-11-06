@@ -19,8 +19,8 @@ public final class App {
         //Categoria c = Comprobador.comprovadorCategoria();
         //InserccionBasesDeDatos.inserccionDeCategorias(c);
         //menu.iniciar();
-        TextoMenu.textoConsultaProveedor();
-        ConsultasBasesDatos.consultarProveedor();
+        TextoMenu.textoConsultaProdcuto();
+        ConsultasBasesDatos.consultarProdcutoPorCodigo();
         
     }
 }
