@@ -62,4 +62,29 @@ public class TextoMenu {
         System.out.println("=======CONSULTAS PROVEEDOR========");
         System.out.printf("%-10s%-10s%-10s\n","Id","Nombre","Email");
     }
+    public static void textoMenuProveedor() {
+        System.out.println("1: Dar de alta un proveedor");
+        System.out.println("2: Listar proveedores");
+        System.out.println("3 :Modificar un proveedor");
+        System.out.println("4: Eliminar un proveedor");
+        System.out.println("0: Salir");
+    
+    }
+     public static void textoMenuCategoria() {
+        System.out.println("1: Dar de alta una Categoria");
+        System.out.println("2: Listar Categorias");
+        System.out.println("3 :Modificar una Categoria");
+        System.out.println("4: Eliminar una Categoria");
+        System.out.println("0: Salir");
+    
+    }
+     public static void textoMenuProducto() {
+        System.out.println("1: Dar de alta un Producto");
+        System.out.println("2: Listar Prodcutos");
+        System.out.println("3 :Modificar un Producto");
+        System.out.println("4: Eliminar un Prodcuto");
+        System.out.println("0: Salir");
+    
+    }
+
 }

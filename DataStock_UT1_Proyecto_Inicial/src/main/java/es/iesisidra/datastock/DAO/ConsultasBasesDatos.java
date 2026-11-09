@@ -4,17 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import es.iesisidra.datastock.util.Consultas;
 import es.iesisidra.datastock.util.LectorConsola;
 
 public class ConsultasBasesDatos {
 
-   private static final String consultaCategoria = "select * from categoria";
-   private static final String consultaProveedor = "select * from proveedor";
-   private static final String consultaProdcutoPorCodigo = "select codigo,nombre from producto where codigo like ?";
+
 
 
    public static void consultarCategoria(){
-       try(Connection c = ConexionBasesDatos.abrir(); PreparedStatement p = c.prepareStatement(consultaCategoria);) {
+       try(Connection c = ConexionBasesDatos.abrir(); PreparedStatement p = c.prepareStatement(Consultas.consultaCategoria);) {
 
           try(ResultSet rs = p.executeQuery()) {
 
@@ -31,7 +30,7 @@ public class ConsultasBasesDatos {
     }
 
     public static void consultarProveedor(){
-      try(Connection c = ConexionBasesDatos.abrir(); PreparedStatement p = c.prepareStatement(consultaProveedor)) {
+      try(Connection c = ConexionBasesDatos.abrir(); PreparedStatement p = c.prepareStatement(Consultas.consultaProveedor)) {
 
           try(ResultSet rs = p.executeQuery()) {
             while (rs.next()) {
@@ -51,7 +50,7 @@ public class ConsultasBasesDatos {
 
       String codigo = LectorConsola.leerTexto("Itroduzca el codigo del objeto que desea buscar: ");
 
-      try(Connection c = ConexionBasesDatos.abrir(); PreparedStatement p = c.prepareStatement(consultaProdcutoPorCodigo)) {
+      try(Connection c = ConexionBasesDatos.abrir(); PreparedStatement p = c.prepareStatement(Consultas.consultaProdcutoPorCodigo)) {
 
          codigo = codigo.toUpperCase();
          p.setString(1, "%"+codigo+"%");//debemos poner las condiciones aqui para que asi executequeri los pueda leer
@@ -72,6 +71,8 @@ public class ConsultasBasesDatos {
          System.out.println("ERROR 1: " + e.getLocalizedMessage());
       }
    }
+
+
 }
 
 /**

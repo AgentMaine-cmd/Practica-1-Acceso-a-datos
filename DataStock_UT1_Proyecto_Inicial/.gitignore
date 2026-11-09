@@ -8,3 +8,4 @@ target/
 datos/salidas/*
 !datos/salidas/.gitkeep
 src/main/resources/db.properties
+src/main/java/es/iesisidra/datastock/util/Consultas
